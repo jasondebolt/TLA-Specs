@@ -4,7 +4,5 @@
 !/.gitignore
 ## Do not ignore the spec files
 !/*.tla
-!/*.cfg
-!/*.pdf
-!/*.prefs
-!/*.toolbox*
+!/*/*.cfg
+!/*/*.pdf
