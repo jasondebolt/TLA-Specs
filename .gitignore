@@ -1,0 +1,6 @@
+## By default, ignore everything
+*
+## Do not ignore .gitignore
+!/.gitignore
+## Do not ignore the spec files
+!/*.tla
