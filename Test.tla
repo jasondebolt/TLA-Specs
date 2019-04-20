@@ -25,12 +25,11 @@ B == IF b <= 3
        ELSE /\ b' = b
             /\ a' = a
      
-
 Next == \/ A
         \/ B
 
 
 =============================================================================
 \* Modification History
-\* Last modified Fri Apr 19 20:44:00 PDT 2019 by jasondebolt
+\* Last modified Fri Apr 19 20:53:48 PDT 2019 by jasondebolt
 \* Created Fri Apr 19 13:33:34 PDT 2019 by jasondebolt
