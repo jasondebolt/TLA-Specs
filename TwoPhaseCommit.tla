@@ -13,7 +13,8 @@
 (* transaction, an event represented here by the TM spontaneously deciding *)
 (* to abort.                                                               *)
 (***************************************************************************)
-CONSTANT RM  \* The set of resource managers
+CONSTANT RM \* The set of resource managers
+
 
 VARIABLES
   rmState,       \* rmState[r] is the state of resource manager r.
@@ -177,5 +178,5 @@ THEOREM TPSpec => TCSpec
 
 =============================================================================
 \* Modification History
-\* Last modified Thu Apr 18 22:12:25 PDT 2019 by jasondebolt
+\* Last modified Fri Apr 19 17:32:53 PDT 2019 by jasondebolt
 \* Created Thu Apr 18 21:42:12 PDT 2019 by jasondebolt
