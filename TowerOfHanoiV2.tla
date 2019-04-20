@@ -32,5 +32,5 @@ Next == \/ Move(A, B, C)
 
 =============================================================================
 \* Modification History
-\* Last modified Sat Apr 20 15:22:08 PDT 2019 by jasondebolt
+\* Last modified Sat Apr 20 15:27:30 PDT 2019 by jasondebolt
 \* Created Sat Apr 20 15:21:53 PDT 2019 by jasondebolt
