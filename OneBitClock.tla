@@ -14,7 +14,6 @@ Init == clock \in {0, 1}
 (***************************************************************************)
 Tick == IF clock = 0 THEN clock' = 1 ELSE clock' = 0
 
-
 (***************************************************************************)
 (* Spec is a temporal formula asserting all behaviours of one-bit clock    *)
 (* must initially satisfy Init and have all steps either match Tick or be  *)
@@ -27,5 +26,5 @@ Spec == Init /\ [][Tick]_<<clock>>
 
 =============================================================================
 \* Modification History
-\* Last modified Sun Apr 21 10:01:34 PDT 2019 by jasondebolt
+\* Last modified Sun Apr 21 10:11:34 PDT 2019 by jasondebolt
 \* Created Sun Apr 21 09:37:13 PDT 2019 by jasondebolt
