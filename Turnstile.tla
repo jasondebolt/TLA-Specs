@@ -2,12 +2,18 @@
 
 EXTENDS Sequences, Integers  
 VARIABLE state
-                       
-(* Example of a very simple 'Turnstile' finite state machine *)
+      
+(**************************************************************************)
+(* Example of a very simple 'Turnstile' finite state machine.             *)
+(**************************************************************************)                      
 
-Init == /\ state = "locked"
+TypeOK == state \in {"locked", "unlocked"}
 
+Init == state = "locked"
 
+(***************************************************************************)
+(* We now define the actions that may be performed by turnstile users.     *)
+(***************************************************************************)
 CoinFromLocked == /\ state = "locked"
                   /\ state' = "unlocked"
 
@@ -20,12 +26,24 @@ PushFromLocked == /\ state = "locked"
 PushFromUnlocked == /\ state = "unlocked"
                     /\ state' = "locked"
 
+(***************************************************************************)
+(* The next-state action.                                                  *)
+(***************************************************************************)
 Next == \/ CoinFromLocked
         \/ CoinFromUnlocked
         \/ PushFromLocked
         \/ PushFromUnlocked
+ 
+(***************************************************************************)
+(* The complete specification of the system.                               *)
+(***************************************************************************)       
+Spec == Init /\ [][Next]_state
 
+(***************************************************************************)
+(*  Asserts that TypeOK is an invariant of the system.                     *)
+(***************************************************************************)
+THEOREM Spec => [](TypeOK)
 =============================================================================
 \* Modification History
-\* Last modified Sat Apr 20 21:40:06 PDT 2019 by jasondebolt
+\* Last modified Sun Apr 21 12:00:41 PDT 2019 by jasondebolt
 \* Created Sat Apr 20 21:23:15 PDT 2019 by jasondebolt
