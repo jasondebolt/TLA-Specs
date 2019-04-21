@@ -12,7 +12,7 @@ Jason == "jason"
 ASSUME
   Jason = "jason"
 
-record == [name |-> "jason", age |-> 37]
+record == [name |-> "jason", age |-> 2]
 ASSUME
   /\ record.name = "jason"
   /\ record.name /= "foo"
@@ -165,6 +165,10 @@ ASSUME
   <<1, 2, 3, 4>> \notin Seq({1, 2, 3})
   
 
+(***************************************************************************)
+(* Sets of tuples.                                                         *)
+(***************************************************************************)
+
 chessboard_squares == {"a", "b", "c", "d", "e", "f", "g", "h"} \X (1..8)
 
 ASSUME
@@ -199,10 +203,63 @@ ASSUME
   /\ <<1, 2, 3>> \in A \X B \X C
   /\ <<1, <<2, 3>>>> \in A \X (B \X C)
   /\ <<<<1, 2>>, 3>> \in (A \X B) \X C
+  
+(***************************************************************************)
+(* Structures.                                                             *)
+(*                                                                         *)
+(* Structures are hashes.  They have keys and values.  You specify them as *)
+(* [key |-> value] and query them with either ["key"] or .key.  Both are   *)
+(* legal and valid.                                                        *)
+(***************************************************************************)
 
+SomeHash == [x |-> 1, y |-> {2, 3}]
+
+ASSUME
+  /\ SomeHash.x = 1
+  /\ SomeHash["x"] = 1
+  /\ SomeHash.y = {2, 3}
+  /\ SomeHash["y"] = {2, 3}
+  /\ DOMAIN SomeHash = {"x", "y"}
+
+(***************************************************************************)
+(* Aside from that, there’s one extra trick structures have.  Instead of   *)
+(* key |-> value, you can do key : set.  In that case, instead of a        *)
+(* structure you get the set of all structures which have, for each given  *)
+(* key, a value in the set.                                                *)
+(***************************************************************************)
+
+SetOfStructures == [x: {1}, y: {2, 3, 4}]
+
+(***************************************************************************)
+(* If you use : syntax and any of the values are not sets, then the entire *)
+(* construct is invalid.  In other words, while [a: {1}, b: {2,3}] is the  *)
+(* above set, [a: 1, b: {2, 3}] will throw an error if you try to use it.  *)
+(***************************************************************************)
+
+ASSUME
+  /\ [x |-> 1, y |-> 2] \in SetOfStructures
+  /\ [x |-> 1, y |-> 3] \in SetOfStructures
+  /\ [x |-> 1, y |-> 4] \in SetOfStructures
   
   
+
+(***************************************************************************)
+(* Type Composition                                                        *)
+(*                                                                         *)
+(* Any type can be squeezed inside any other type.                         *)
+(***************************************************************************)
+
+crazy == [a |-> {<<>>, <<1, 2, 3>>, <<3, 2, 1>>}, b |-> <<[a |-> 0]>>]
+
+\* A function of keys mapping to sets of tuples or of keys mapping to tuples of functions.
+
+ASSUME
+  crazy.b[1].a = 0 \* Remember that tuples are 1 indexed.
+  
+  
+
+
 =============================================================================
 \* Modification History
-\* Last modified Sun Apr 21 16:17:03 PDT 2019 by jasondebolt
+\* Last modified Sun Apr 21 16:44:59 PDT 2019 by jasondebolt
 \* Created Sat Apr 20 20:01:34 PDT 2019 by jasondebolt
