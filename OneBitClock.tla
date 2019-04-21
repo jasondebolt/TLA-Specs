@@ -1,5 +1,4 @@
 ---------------------------- MODULE OneBitClock ----------------------------
-
 VARIABLE clock
 
 (***************************************************************************)
@@ -26,5 +25,5 @@ Spec == Init /\ [][Tick]_<<clock>>
 
 =============================================================================
 \* Modification History
-\* Last modified Sun Apr 21 10:11:34 PDT 2019 by jasondebolt
+\* Last modified Sun Apr 21 10:19:30 PDT 2019 by jasondebolt
 \* Created Sun Apr 21 09:37:13 PDT 2019 by jasondebolt
