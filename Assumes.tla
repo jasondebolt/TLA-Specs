@@ -126,12 +126,83 @@ ASSUME
   IsCommutative(Divide, {1, 2, 3}) => TRUE
   
 ASSUME
-  ~IsCommutative(Divide, {1, 2, 3})
+  ~IsCommutative(Divide, {1, 2, 3})  
+
+ASSUME
+  ~\E x \in {1, 3, 5} : IsEven(x)
+  
+Pick(S) == CHOOSE s \in S : TRUE
+RECURSIVE SetReduce(_, _, _)
+SetReduce(Op(_, _), S, value) == IF S = {} THEN value
+                              ELSE LET s == Pick(S)
+                              IN SetReduce(Op, S \ {s}, Op(s, value)) 
+
+Sum(S) == LET _op(a, b) == a + b
+          IN SetReduce(_op, S, 0)
+          
+ASSUME
+  Sum({1, 2, 3}) = 6
+
+Min(S) == CHOOSE x \in S: \A y \in S: x <= y
+
+
+ASSUME
+  Min({5, 3, 7, 10, 2, 9}) = 2
+  
+Max(S) == CHOOSE x \in S: \A y \in S: x >= y
+
+ASSUME
+  Max({4, 6, 1, 2, 9, 3, 5}) = 9
+  
+  
+ASSUME
+  <<1, 2, 3>> \in Seq({1, 2, 3})
+  
+ASSUME
+  <<4>> \notin Seq({1, 2, 3})
+  
+ASSUME
+  <<1, 2, 3, 4>> \notin Seq({1, 2, 3})
   
 
+chessboard_squares == {"a", "b", "c", "d", "e", "f", "g", "h"} \X (1..8)
+
+ASSUME
+  /\ <<"a", 1>> \in chessboard_squares
+  /\ <<"a", 2>> \in chessboard_squares
+  /\ <<"a", 3>> \in chessboard_squares
+  /\ <<"a", 4>> \in chessboard_squares
+  
+  
+jason == (1..2) \X {"Jason", "DeBolt"}
+
+
+ASSUME
+  /\ <<1, "Jason">> \in jason
+  /\ <<2, "Jason">> \in jason
+  /\ <<1, "DeBolt">> \in jason
+  /\ <<2, "DeBolt">> \in jason
+
+
+digits == {"one", "three"} \X {"two", "four"}
+
+ASSUME
+  /\ <<"one", "two">> \in digits
+  /\ <<"three", "four">> \in digits
   
 
+A == {1}
+B == {2}
+C == {3}
+
+ASSUME
+  /\ <<1, 2, 3>> \in A \X B \X C
+  /\ <<1, <<2, 3>>>> \in A \X (B \X C)
+  /\ <<<<1, 2>>, 3>> \in (A \X B) \X C
+
+  
+  
 =============================================================================
 \* Modification History
-\* Last modified Sun Apr 21 11:41:10 PDT 2019 by jasondebolt
+\* Last modified Sun Apr 21 16:17:03 PDT 2019 by jasondebolt
 \* Created Sat Apr 20 20:01:34 PDT 2019 by jasondebolt
