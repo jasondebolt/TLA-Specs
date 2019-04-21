@@ -4,3 +4,4 @@
 !/.gitignore
 ## Do not ignore the spec files
 !/*.tla
+!/**/*.pdf
