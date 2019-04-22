@@ -46,12 +46,20 @@ ASSUME
   \A F, G \in {TRUE, FALSE} : (F => G) <=> ~F \/ G
   
 
+(***************************************************************************)
+(* Sets                                                                    *)
+(***************************************************************************)
+
 ASSUME
   {1, 2, 2, 2, 3} = {1, 2, 3}
   
   
 ASSUME
   {1, 2, 3, 3, 4, 4} \ {4} = {1, 2, 3}
+  
+  
+ASSUME
+  {1, 2, 3} \cup {4, 5, 6} = {1, 2, 3, 4, 5, 6}
   
   
 ASSUME
@@ -256,10 +264,21 @@ crazy == [a |-> {<<>>, <<1, 2, 3>>, <<3, 2, 1>>}, b |-> <<[a |-> 0]>>]
 ASSUME
   crazy.b[1].a = 0 \* Remember that tuples are 1 indexed.
   
+
+blah == [name |-> "jason", hobbies |-> [outdoor |-> <<"cycling", "hiking">>, indoor |-> <<"reading", "watching tv">>]]
+
+ASSUME
+  /\ blah.name = "jason"
+  /\ blah.hobbies.outdoor[1] = "cycling"
   
+  
+sing == <<<<4, 5, 6>>, <<>>, <<>>>>
+
+ASSUME
+  DOMAIN sing = {1, 2, 3}
 
 
 =============================================================================
 \* Modification History
-\* Last modified Sun Apr 21 16:44:59 PDT 2019 by jasondebolt
+\* Last modified Sun Apr 21 20:00:41 PDT 2019 by jasondebolt
 \* Created Sat Apr 20 20:01:34 PDT 2019 by jasondebolt
