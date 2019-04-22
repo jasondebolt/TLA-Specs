@@ -53,7 +53,6 @@ ASSUME
 ASSUME
   {1, 2, 2, 2, 3} = {1, 2, 3}
   
-  
 ASSUME
   {1, 2, 3, 3, 4, 4} \ {4} = {1, 2, 3}
   
@@ -69,6 +68,20 @@ ASSUME
 ASSUME 
   {1, 3} \subseteq {3, 2, 1}
   
+
+(***************************************************************************)
+(* Filtering a set                                                         *)
+(***************************************************************************)  
+
+ASSUME
+  {x \in 1..8 : x % 2 = 1} = {1, 3, 5, 7}
+  
+ASSUME
+  {x \in 1..8 : x % 2 = 1 /\ ~(x % 5 = 0)} = {1, 3, 7}
+  
+ASSUME
+ {<<x, y>> \in {<<1, 2>>, <<4, 2>>} : x > y} = {<<4, 2>>}
+ 
 
 IsPrime(x) == x > 1 /\ ~\E d \in 2..(x-1) : x % d = 0
 
@@ -280,5 +293,5 @@ ASSUME
 
 =============================================================================
 \* Modification History
-\* Last modified Sun Apr 21 20:00:41 PDT 2019 by jasondebolt
+\* Last modified Sun Apr 21 21:47:34 PDT 2019 by jasondebolt
 \* Created Sat Apr 20 20:01:34 PDT 2019 by jasondebolt
