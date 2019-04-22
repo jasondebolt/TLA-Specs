@@ -1,8 +1,16 @@
-------------------------------- MODULE DieHard -------------------------------
+------------------------------ MODULE DieHard ------------------------------
 
 EXTENDS Integers
 VARIABLES small, big
 
+(***************************************************************************)
+(* In the movie Die Hard 3, our heros, John McClain (Bruce Willis) and     *)
+(* Zeus (Samuel L.  Jackson), are at the bidding of the evil Peter Krieg   *)
+(* (Jeremy Irons).  First they are sent to the pay phone, then to the      *)
+(* subway, and finally to the park.  It is here that they must make        *)
+(* exactly four gallons from five and three gallon jugs.  They did it just *)
+(* in time.                                                                *)
+(***************************************************************************)
 
 TypeOK == /\ small \in 0..3
           /\ big \in 0..5
@@ -34,6 +42,7 @@ BigToSmall == \/ /\ big + small =< 3
               \/ /\ small' = 3
                  /\ big' = small - (3 - big)
 
+Invariant == big /= 4
 
 Next == \/ FillSmall
         \/ FillBig
@@ -42,7 +51,8 @@ Next == \/ FillSmall
         \/ SmallToBig
         \/ BigToSmall
 
+
 =============================================================================
 \* Modification History
-\* Last modified Sat Apr 20 10:25:14 PDT 2019 by jasondebolt
-\* Created Sat Apr 20 10:18:35 PDT 2019 by jasondebolt
+\* Last modified Sun Apr 21 21:08:41 PDT 2019 by jasondebolt
+\* Created Sun Apr 21 21:07:02 PDT 2019 by jasondebolt
