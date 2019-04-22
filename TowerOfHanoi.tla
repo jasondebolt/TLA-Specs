@@ -3,7 +3,6 @@
 EXTENDS Sequences, Integers  
 VARIABLE A, B, C
 
-
 CanMove(x,y) == /\ Len(x) > 0  
                 /\ IF Len(y) > 0 THEN Head(y) > Head(x) ELSE TRUE
 
@@ -12,7 +11,7 @@ Move(x,y,z) == /\ CanMove(x,y)
                /\ y' = <<Head(x)>> \o y
                /\ z' = z
 
-Invariant == C /= <<1,2,3>>   \* When we win!                           
+Invariant == C /= <<1,2,3>>                         
 
 Init == /\ A = <<1,2,3>>  
         /\ B = <<>>
@@ -27,5 +26,5 @@ Next == \/ Move(A,B,C) \* Move A to B
 
 =============================================================================
 \* Modification History
-\* Last modified Sat Apr 20 12:05:29 PDT 2019 by jasondebolt
+\* Last modified Sun Apr 21 21:03:07 PDT 2019 by jasondebolt
 \* Created Thu Apr 18 19:50:30 PDT 2019 by jasondebolt

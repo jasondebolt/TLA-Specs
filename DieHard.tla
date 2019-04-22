@@ -1,4 +1,4 @@
-------------------------------- MODULE Jugs2 -------------------------------
+------------------------------- MODULE DieHard -------------------------------
 
 EXTENDS Integers
 VARIABLES small, big
@@ -12,29 +12,29 @@ Init == /\ big   = 0
 
 FillSmall == /\ small' = 3
              /\ big' = big
-        
+
 FillBig == /\ big' = 5
            /\ small' = small
-              
+
 EmptySmall == /\ small' = 0
               /\ big' = big
-  
+
 EmptyBig == /\ big' = 0
-            /\ small' = small              
-              
+            /\ small' = small
+
 SmallToBig == \/ /\ big + small =< 5
                  /\ big' = big + small
                  /\ small' = 0
               \/ /\ big' = 5
                  /\ small' = small - (5 - big)
-                   
+
 BigToSmall == \/ /\ big + small =< 3
                  /\ small' = big + small
-                 /\ big' = 0 
+                 /\ big' = 0
               \/ /\ small' = 3
                  /\ big' = small - (3 - big)
-                  
-           
+
+
 Next == \/ FillSmall
         \/ FillBig
         \/ EmptySmall

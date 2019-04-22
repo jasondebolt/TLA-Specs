@@ -3,7 +3,7 @@
 EXTENDS Integer
 
 (***************************************************************************)
-(* Simple math functions                                                   *)
+(* Simple math                                                             *)
 (***************************************************************************)
 Sum(a, b) == a + b
 Sub(a, b) == a - b
@@ -11,12 +11,25 @@ Mult(a, b) == a * b
 Div(a, b) == a / b
 
 (***************************************************************************)
+(* Set related                                                             *)
+(***************************************************************************)
+
+Pick(S) == CHOOSE s \in S : TRUE
+RECURSIVE SetReduce(_, _, _)
+SetReduce(Op(_, _), S, value) == IF S = {} THEN value
+                              ELSE LET s == Pick(S)
+                              IN SetReduce(Op, S \ {s}, Op(s, value))
+
+Sum(S) == LET _op(a, b) == a + b
+          IN SetReduce(_op, S, 0)
+
+(***************************************************************************)
 (* Useful Ranges                                                           *)
 (***************************************************************************)
-Range10 == n \in 0..9
 
+Range10 == n \in 0..9
 
 =============================================================================
 \* Modification History
-\* Last modified Fri Apr 19 20:49:11 PDT 2019 by jasondebolt
+\* Last modified Sun Apr 21 20:56:28 PDT 2019 by jasondebolt
 \* Created Fri Apr 19 20:45:50 PDT 2019 by jasondebolt
