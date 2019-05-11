@@ -69,6 +69,23 @@ ASSUME
   {1, 3} \subseteq {3, 2, 1}
   
 
+ASSUME
+  (\A i \in {2, 4, 8}: i % 2 = 0) = TRUE
+
+
+ASSUME
+  ({1, 2} \in SUBSET {1, 2, 3}) = TRUE
+
+
+ASSUME
+  ({1, 2} \in SUBSET ({1, 3} \cup {4, 2})) = TRUE
+  
+ASSUME
+  /\ {"one", "two"} # {}
+  /\ {"one", "two"} /= {}
+  /\ {"one", "two"} \ {"one"} = {"two"}
+  
+
 (***************************************************************************)
 (* Filtering a set                                                         *)
 (***************************************************************************)  
@@ -216,6 +233,11 @@ ASSUME
   /\ <<"three", "four">> \in digits
   
 
+ASSUME
+  /\ <<"one", "two">> \o <<"three">> = <<"one", "two", "three">>
+  /\ <<"one", "two">> \circ <<"three">> = <<"one", "two", "three">>
+  
+
 A == {1}
 B == {2}
 C == {3}
@@ -241,6 +263,13 @@ ASSUME
   /\ SomeHash.y = {2, 3}
   /\ SomeHash["y"] = {2, 3}
   /\ DOMAIN SomeHash = {"x", "y"}
+  
+  
+SomeHash2 == [x |-> 1, y |-> {2, 3}]
+SomeHash3 == [SomeHash2 EXCEPT !["x"] = 6]
+
+ASSUME
+  /\ SomeHash3.x = 6
 
 (***************************************************************************)
 (* Aside from that, there’s one extra trick structures have.  Instead of   *)
@@ -267,9 +296,9 @@ ASSUME
 (* Functions                                                               *)
 (***************************************************************************)
 ASSUME
-  /\ [{1, 2, 3} -> {"done"}] = {<<"done", "done", "done">>}
-  /\ [{"a", "b"} -> {"done"}] = {[a |-> "done", b |-> "done"]}
-  /\ [{"a", "b"} -> {"done", "pc"}] = {[a |-> "done", b |-> "done"],
+  /\ [{1, 2, 3} -> {"done"}] = {<<"done", "done", "done">>}  \* Turns a function into a set of tuples
+  /\ [{"a", "b"} -> {"done"}] = {[a |-> "done", b |-> "done"]}   \* Turns a function into a set of structs
+  /\ [{"a", "b"} -> {"done", "pc"}] = {[a |-> "done", b |-> "done"],   \* Turns a function into a set of structs
                                        [a |-> "done", b |-> "pc"],
                                        [a |-> "pc",   b |-> "done"],
                                        [a |-> "pc",   b |-> "pc"]}
@@ -303,5 +332,5 @@ ASSUME
 
 =============================================================================
 \* Modification History
-\* Last modified Fri May 10 20:13:10 PDT 2019 by jasondebolt
+\* Last modified Fri May 10 21:01:31 PDT 2019 by jasondebolt
 \* Created Sat Apr 20 20:01:34 PDT 2019 by jasondebolt
