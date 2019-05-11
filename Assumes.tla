@@ -261,8 +261,18 @@ ASSUME
   /\ [x |-> 1, y |-> 2] \in SetOfStructures
   /\ [x |-> 1, y |-> 3] \in SetOfStructures
   /\ [x |-> 1, y |-> 4] \in SetOfStructures
+
   
-  
+(***************************************************************************)
+(* Functions                                                               *)
+(***************************************************************************)
+ASSUME
+  /\ [{1, 2, 3} -> {"done"}] = {<<"done", "done", "done">>}
+  /\ [{"a", "b"} -> {"done"}] = {[a |-> "done", b |-> "done"]}
+  /\ [{"a", "b"} -> {"done", "pc"}] = {[a |-> "done", b |-> "done"],
+                                       [a |-> "done", b |-> "pc"],
+                                       [a |-> "pc",   b |-> "done"],
+                                       [a |-> "pc",   b |-> "pc"]}
 
 (***************************************************************************)
 (* Type Composition                                                        *)
@@ -293,5 +303,5 @@ ASSUME
 
 =============================================================================
 \* Modification History
-\* Last modified Sun Apr 21 21:47:34 PDT 2019 by jasondebolt
+\* Last modified Fri May 10 20:13:10 PDT 2019 by jasondebolt
 \* Created Sat Apr 20 20:01:34 PDT 2019 by jasondebolt

@@ -3,6 +3,13 @@
 EXTENDS Integers, Sequences, TLC
 CONSTANTS Data, NULL, Clients
 
+(***************************************************************************)
+(* Constants:                                                              *)
+(*   Clients <- [model value] {c1, c2}                                     *)
+(*   NULL <- [model value]                                                 *)
+(*   Data <- [model value] {d1, d2}                                        *)
+(***************************************************************************)
+
 (*--algorithm database
 
 variables
@@ -141,5 +148,5 @@ Spec == Init /\ [][Next]_vars
 
 =============================================================================
 \* Modification History
-\* Last modified Sun May 05 12:19:56 PDT 2019 by jasondebolt
+\* Last modified Sun May 05 14:55:42 PDT 2019 by jasondebolt
 \* Created Sun May 05 11:33:25 PDT 2019 by jasondebolt
