@@ -1,5 +1,5 @@
 ------------------------------ MODULE Assumes ------------------------------
-EXTENDS Integers, Sequences
+EXTENDS Integers, Sequences, FiniteSets, Naturals
 
 (* You can run this as a model using "No behavior spec" mode *)
 \* Single line comment
@@ -65,7 +65,7 @@ ASSUME
   \E x \in {3, 4, 5} : x = 5
 
 
-ASSUME 
+ASSUME
   {1, 3} \subseteq {3, 2, 1}
   
 
@@ -86,9 +86,15 @@ ASSUME
   /\ {"one", "two"} \ {"one"} = {"two"}
   
 
-(***************************************************************************)
-(* Filtering a set                                                         *)
-(***************************************************************************)  
+ASSUME
+  /\ IsFiniteSet({1, 2, 3})
+  /\ ~IsFiniteSet(Nat)
+  
+  
+ASSUME
+  /\ Cardinality({3, 4, 1}) = 3
+  /\ Cardinality({}) = 0
+
 
 ASSUME
   {x \in 1..8 : x % 2 = 1} = {1, 3, 5, 7}
@@ -99,12 +105,32 @@ ASSUME
 ASSUME
  {<<x, y>> \in {<<1, 2>>, <<4, 2>>} : x > y} = {<<4, 2>>}
  
+ 
+ 
+(***************************************************************************)
+(* IF STATEMENTS                                                           *)
+(***************************************************************************)
 
-IsPrime(x) == x > 1 /\ ~\E d \in 2..(x-1) : x % d = 0
+ASSUME
+  /\ (IF 1 < 3 THEN 1 ELSE 0) = 1
+  /\ (IF 1 < 3 THEN IF 2 > 1 THEN 6 ELSE 4 ELSE 7) = 6
+ 
+
+(***************************************************************************)
+(* LET STATEMENTS                                                          *)
+(***************************************************************************)
+
+
+ASSUME
+  /\ LET x == 6 IN x \in {6, 7}
 
 (***************************************************************************)
 (* For all y in S such that y is not prime or y is less than or equal to x *)
 (***************************************************************************)
+
+IsPrime(x) == x > 1 /\ ~\E d \in 2..(x-1) : x % d = 0
+
+
 LargestPrime(S) == CHOOSE x \in S:
                     /\ IsPrime(x)
                     /\ \A y \in S:
@@ -192,6 +218,24 @@ Max(S) == CHOOSE x \in S: \A y \in S: x >= y
 ASSUME
   Max({4, 6, 1, 2, 9, 3, 5}) = 9
   
+
+(***************************************************************************)
+(* SEQUENCES                                                               *)
+(***************************************************************************)
+
+\* Seq(S) is the set of all finite sequences of set S.
+
+ASSUME
+  /\ <<>>     \in Seq({1, 0})  
+  /\ <<1>>    \in Seq({1, 0})
+  /\ <<0>>    \in Seq({1, 0})
+  /\ <<0, 0>> \in Seq({1, 0})
+  /\ <<0, 1>> \in Seq({1, 0})
+  /\ <<1, 0>> \in Seq({1, 0})
+  /\ <<1, 1>> \in Seq({1, 0})
+
+ASSUME
+  /\ {<<0>>} \subseteq Seq({0, 1})
   
 ASSUME
   <<1, 2, 3>> \in Seq({1, 2, 3})
@@ -202,9 +246,24 @@ ASSUME
 ASSUME
   <<1, 2, 3, 4>> \notin Seq({1, 2, 3})
   
+ 
+ASSUME
+  /\ <<1, 2>> \o <<3, 4>> = <<1, 2, 3, 4>>
+  
+ 
+LessThanThree(x) == x < 3
+  
+  
+ASSUME
+  /\ Head(<<2, 3, 4>>) = 2
+  /\ Tail(<<2, 3, 4>>) = <<3, 4>>
+  /\ Append(<<1, 2>>, 3) = <<1, 2, 3>>
+  /\ Len(<<5, 2, 1>>) = 3
+  /\ SubSeq(<<9, 3, 5, 6>>, 1, 3) = <<9, 3, 5>>
+  /\ SelectSeq(<<5, 2, 9>>, LessThanThree) = <<2>> 
 
 (***************************************************************************)
-(* Sets of tuples.                                                         *)
+(* TUPLES                                                        *)
 (***************************************************************************)
 
 chessboard_squares == {"a", "b", "c", "d", "e", "f", "g", "h"} \X (1..8)
@@ -375,5 +434,5 @@ ASSUME
 
 =============================================================================
 \* Modification History
-\* Last modified Fri May 10 21:24:22 PDT 2019 by jasondebolt
+\* Last modified Sun May 12 10:42:59 PDT 2019 by jasondebolt
 \* Created Sat Apr 20 20:01:34 PDT 2019 by jasondebolt
