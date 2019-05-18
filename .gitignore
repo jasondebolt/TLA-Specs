@@ -2,7 +2,14 @@
 *
 ## Do not ignore .gitignore
 !/.gitignore
+
 ## Do not ignore the spec files
 !/*.tla
 !/*.cfg
 !/**/*.pdf
+
+## fifo directory
+!/fifo/
+!/fifo/*.pdf
+!/fifo/*.tla
+!/fifo/*.cfg
