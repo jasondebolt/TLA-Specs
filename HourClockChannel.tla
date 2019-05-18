@@ -40,19 +40,16 @@ PrintVal(id, exp)  ==  Print(<<id, exp>>, TRUE)
 
 IsSending == chan.rdy # chan.ack
 
-HCChannelInit == /\ TypeInvariant
-                 /\ chan.ack = chan.rdy
-                 /\ HCini       
+HCChannelInit == /\ Init         \* Initialize Channel
+                 /\ HCini        \* Initilized HourClock   
         
-HCChannelSend(d) == /\ chan.rdy = chan.ack
-                    /\ chan' = [chan EXCEPT !.val = d, !.rdy = 1 - @]
+HCChannelSend(d) == /\ Send(d)   \* Channel's Send(d)
                     /\ UNCHANGED <<hr>>
 
-HCChannelRcv     == /\ chan.rdy # chan.ack
-                    /\ chan' = [chan EXCEPT !.ack = 1 - @]
+HCChannelRcv     == /\ Rcv       \* Channel's Rcv
                     /\ UNCHANGED <<hr>>
            
-HCnxtChannel  == /\ HCnxt
+HCnxtChannel  == /\ HCnxt        \* HourClock's NCnxt
                  /\ ~IsSending
                  /\ UNCHANGED <<chan>>
                  /\ PrintVal("HCnxtChannel", <<hr, chan>>)
@@ -68,5 +65,5 @@ THEOREM HCChannelSpec => []TypeInvariant
 
 =============================================================================
 \* Modification History
-\* Last modified Sat May 18 10:30:14 PDT 2019 by jasondebolt
+\* Last modified Sat May 18 12:16:33 PDT 2019 by jasondebolt
 \* Created Sat May 18 09:31:23 PDT 2019 by jasondebolt
