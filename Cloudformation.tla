@@ -52,9 +52,23 @@ TypeInvariant == status \in {
 }
 
 Init == status = "default"
+
 DoesNotExist(s) == s = "default"
-IsCompleted(s) == s \in {CREATE_COMPLETE, DELETE_COMPLETE, ROLLBACK_COMPLETE, UPDATE_COMPLETE, UPDATE_ROLLBACK_COMPLETE}
-IsFailed(s) == s \in {CREATE_FAILED, DELETE_FAILED, ROLLBACK_FAILED, UPDATE_ROLLBACK_FAILED}
+
+IsCompleted(s) == s \in {
+    CREATE_COMPLETE,
+    DELETE_COMPLETE,
+    ROLLBACK_COMPLETE,
+    UPDATE_COMPLETE,
+    UPDATE_ROLLBACK_COMPLETE
+}
+
+IsFailed(s) == s \in {
+    CREATE_FAILED,
+    DELETE_FAILED,
+    ROLLBACK_FAILED,
+    UPDATE_ROLLBACK_FAILED
+}
 
 (***************************************************************************)
 (* Ongoing creation of one or more stacks.                                 *)
@@ -226,5 +240,5 @@ THEOREM Spec => []TypeInvariant
 
 =============================================================================
 \* Modification History
-\* Last modified Sun May 19 18:18:58 PDT 2019 by jasondebolt
+\* Last modified Sun May 19 18:22:19 PDT 2019 by jasondebolt
 \* Created Sun May 19 15:44:54 PDT 2019 by jasondebolt
