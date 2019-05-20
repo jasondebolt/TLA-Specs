@@ -102,6 +102,13 @@ ASSUME
 ASSUME
   {x \in 1..8 : x % 2 = 1 /\ ~(x % 5 = 0)} = {1, 3, 7}
   
+  
+ASSUME
+  {x \in {[name |-> "jason"], [name |-> "jake"]} : x.name = "jason"} = {[name |-> "jason"]}
+  
+ASSUME
+  {<<x, y>> \in {"a", "b"} \X {[name |-> "jason"], [name |-> "bob"]}: y.name = "jason"} = {<<"a", [name |-> "jason"]>>, <<"b", [name |-> "jason"]>>}
+  
 ASSUME
  {<<x, y>> \in {<<1, 2>>, <<4, 2>>} : x > y} = {<<4, 2>>}
  
@@ -434,5 +441,5 @@ ASSUME
 
 =============================================================================
 \* Modification History
-\* Last modified Sun May 12 10:42:59 PDT 2019 by jasondebolt
+\* Last modified Sun May 19 15:28:48 PDT 2019 by jasondebolt
 \* Created Sat Apr 20 20:01:34 PDT 2019 by jasondebolt
