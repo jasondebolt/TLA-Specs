@@ -106,6 +106,11 @@ ASSUME
 ASSUME
   {x \in {[name |-> "jason"], [name |-> "jake"]} : x.name = "jason"} = {[name |-> "jason"]}
   
+
+ASSUME
+  {[name |-> s, status |-> "default"] : s \in {"ec2", "s3"}} = { [name |-> "ec2", status |-> "default"],
+     [name |-> "s3", status |-> "default"] }
+  
 ASSUME
   {<<x, y>> \in {"a", "b"} \X {[name |-> "jason"], [name |-> "bob"]}: y.name = "jason"} = {<<"a", [name |-> "jason"]>>, <<"b", [name |-> "jason"]>>}
   
@@ -441,5 +446,5 @@ ASSUME
 
 =============================================================================
 \* Modification History
-\* Last modified Sun May 19 15:28:48 PDT 2019 by jasondebolt
+\* Last modified Sun May 19 21:23:39 PDT 2019 by jasondebolt
 \* Created Sat Apr 20 20:01:34 PDT 2019 by jasondebolt
