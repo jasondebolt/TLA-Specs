@@ -338,9 +338,24 @@ ASSUME
   
 SomeHash2 == [x |-> 1, y |-> {2, 3}]
 SomeHash3 == [SomeHash2 EXCEPT !["x"] = 6]
+SomeHash4 == [test |-> "jason", blah |-> "debolt"]
 
 ASSUME
   /\ SomeHash3.x = 6
+  
+  
+MyHash == [a: {"foo", "bar"}]
+MyHash2 == [a: {"test"}, b: {"two", "three"}]
+MyHash3 == [t: {1, 2, "x", "j"}, p: {"n", "z"}]
+BasicHash == [name |-> "jason", job |-> "Engineer"]
+
+  
+ASSUME
+  /\ [a |-> "foo"] \in MyHash
+  /\ [a |-> "test", b |-> "two"] \in MyHash2
+  /\ [t |-> 1, p |-> "z"] \in MyHash3
+  /\ BasicHash.name = "jason" /\ BasicHash["job"] = "Engineer"
+  
 
 (***************************************************************************)
 (* Aside from that, there’s one extra trick structures have.  Instead of   *)
@@ -366,6 +381,55 @@ ASSUME
 (***************************************************************************)
 (* Functions                                                               *)
 (***************************************************************************)
+
+
+TestAccounts == [{"account1", "account2"} -> {"dev", "qa", "prod"}]
+
+ASSUME
+  /\ [account1 |-> "dev", account2 |-> "dev"] \in TestAccounts
+  /\ [account1 |-> "prod", account2 |-> "prod"] \in TestAccounts
+  /\ [account1 |-> "dev", account2 |-> "prod"] \in TestAccounts
+
+
+JobStates == [{"job1", "job2", "job3", "job4"} -> {"InProgress", "Succeeded", "Failed"}]
+
+ASSUME
+  /\ [job1 |-> "Failed", job2 |-> "Failed", job3 |-> "Failed", job4 |-> "Failed"] \in JobStates
+  
+
+BedroomDoors == [{"door1", "door2"} ->  {"unlocked", "locked"}]
+
+ASSUME
+  /\ [door1 |-> "unlocked", door2 |-> "unlocked"] \in BedroomDoors
+  
+  
+BedroomDoors2 == [{"door1", "door2"} -> [s: {"open", "closed"}, l: {"unlocked", "locked"}]]
+
+ASSUME
+  /\ [door1 |-> [s |-> "open", l |-> "locked"], door2 |-> [s |-> "open", l |-> "locked"]] \in BedroomDoors2
+  /\ [door1 |-> [s |-> "closed", l |-> "unlocked"], door2 |-> [s |-> "closed", l |-> "locked"]] \in BedroomDoors2 
+  
+  
+Stoplights == [{"light1", "light2"} -> {"green", "yellow", "red"}]
+
+ASSUME
+  /\ [light1 |-> "red", light2 |-> "green"] \in Stoplights
+ 
+ 
+Stoplights2 == [light_name: {"light1", "light2"}, state: {"green", "yellow", "red"}]
+
+ASSUME
+  /\ [light_name |-> "light1", state |-> "green"] \in Stoplights2
+  
+  
+PullRequestState == [pr_status: {"open", "closed"}, is_master: {TRUE, FALSE}, is_first_commit: {TRUE, FALSE}]
+
+
+ASSUME
+  /\ [pr_status |-> "open", is_master |-> TRUE, is_first_commit |-> TRUE] \in PullRequestState
+
+  
+
 ASSUME
   /\ [{1, 2, 3} -> {"done"}] = {<<"done", "done", "done">>}  \* Turns a function into a set of tuples
   /\ [{"a", "b"} -> {"done"}] = {[a |-> "done", b |-> "done"]}   \* Turns a function into a set of structs
@@ -446,5 +510,5 @@ ASSUME
 
 =============================================================================
 \* Modification History
-\* Last modified Sun May 19 21:23:39 PDT 2019 by jasondebolt
+\* Last modified Tue Sep 24 23:06:08 PDT 2019 by jasondebolt
 \* Created Sat Apr 20 20:01:34 PDT 2019 by jasondebolt
