@@ -389,6 +389,7 @@ ASSUME
   /\ [account1 |-> "dev", account2 |-> "dev"] \in TestAccounts
   /\ [account1 |-> "prod", account2 |-> "prod"] \in TestAccounts
   /\ [account1 |-> "dev", account2 |-> "prod"] \in TestAccounts
+  
 
 
 JobStates == [{"job1", "job2", "job3", "job4"} -> {"InProgress", "Succeeded", "Failed"}]
@@ -508,7 +509,12 @@ ASSUME
   DOMAIN sing = {1, 2, 3}
 
 
+
+ASSUME
+    Cardinality(sing) = 3
+    
+
 =============================================================================
 \* Modification History
-\* Last modified Tue Sep 24 23:06:08 PDT 2019 by jasondebolt
+\* Last modified Fri Sep 27 20:05:12 PDT 2019 by jasondebolt
 \* Created Sat Apr 20 20:01:34 PDT 2019 by jasondebolt
